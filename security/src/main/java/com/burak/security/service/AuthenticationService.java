@@ -29,14 +29,14 @@ public class AuthenticationService {
 
 	public RegisterResponse register(RegisterRequest registerRequest) {
 		var user = userRepository.findByEmail(registerRequest.getEmail());
-		if(user.isPresent()) {
+		if (user.isPresent()) {
 			return RegisterResponse.builder().result("Bu eposta adresi kullanılmış.").build();
 		}
-		
+
 		var newUser = User.builder().firstname(registerRequest.getFirstname()).lastname(registerRequest.getLastname())
 				.email(registerRequest.getEmail()).password(passwordEncoder.encode(registerRequest.getPassword()))
 				.role(Role.USER).build();
-		
+
 		userRepository.save(newUser);
 		return RegisterResponse.builder().result("Kullanıcı başarıyla oluşturuldu.").build();
 	}
@@ -46,10 +46,10 @@ public class AuthenticationService {
 				new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword()));
 
 		var user = userRepository.findByEmail(loginRequest.getEmail()).orElseThrow();
-		
-        Map<String, Object> claims = new HashMap<>();
-        claims.put("roles", user.getAuthorities());
-        
+
+		Map<String, Object> claims = new HashMap<>();
+		claims.put("roles", user.getAuthorities());
+
 		var jwtToken = jwtService.generateToken(claims, user);
 		return LoginResponse.builder().token(jwtToken).build();
 	}
