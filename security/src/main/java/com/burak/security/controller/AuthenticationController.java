@@ -1,7 +1,13 @@
-package com.burak.security.auth;
+package com.burak.security.controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.burak.security.dto.LoginRequest;
+import com.burak.security.dto.LoginResponse;
+import com.burak.security.dto.RegisterRequest;
+import com.burak.security.dto.RegisterResponse;
+import com.burak.security.service.AuthenticationService;
 
 import lombok.RequiredArgsConstructor;
 

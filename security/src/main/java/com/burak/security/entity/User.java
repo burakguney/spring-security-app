@@ -1,4 +1,4 @@
-package com.burak.security.user;
+package com.burak.security.entity;
 
 import java.util.Collection;
 import java.util.List;

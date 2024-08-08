@@ -1,4 +1,4 @@
-package com.burak.security.auth;
+package com.burak.security.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

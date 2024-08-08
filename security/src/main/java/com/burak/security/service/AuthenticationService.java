@@ -1,4 +1,4 @@
-package com.burak.security.auth;
+package com.burak.security.service;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -8,10 +8,13 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.burak.security.config.JwtService;
-import com.burak.security.user.Role;
-import com.burak.security.user.User;
-import com.burak.security.user.UserRepository;
+import com.burak.security.dto.LoginRequest;
+import com.burak.security.dto.LoginResponse;
+import com.burak.security.dto.RegisterRequest;
+import com.burak.security.dto.RegisterResponse;
+import com.burak.security.entity.Role;
+import com.burak.security.entity.User;
+import com.burak.security.repository.UserRepository;
 
 import lombok.RequiredArgsConstructor;
 
@@ -46,7 +49,7 @@ public class AuthenticationService {
 		
         Map<String, Object> claims = new HashMap<>();
         claims.put("roles", user.getAuthorities());
-
+        
 		var jwtToken = jwtService.generateToken(claims, user);
 		return LoginResponse.builder().token(jwtToken).build();
 	}

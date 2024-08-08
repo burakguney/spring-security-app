@@ -1,4 +1,4 @@
-package com.burak.security.config;
+package com.burak.security.service;
 
 import java.util.Date;
 import java.util.HashMap;

@@ -1,6 +1,9 @@
-package com.burak.security.user;
+package com.burak.security.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.burak.security.entity.User;
+
 import java.util.Optional;
 
 public interface UserRepository extends JpaRepository<User, Integer> {
