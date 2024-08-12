@@ -26,9 +26,13 @@ public class JwtService {
 	}
 
 	public String generateToken(Map<String, Object> claims, UserDetails userDetails) {
-		return Jwts.builder().claims(claims).subject(userDetails.getUsername())
+		return Jwts.builder()
+				.claims(claims)
+				.subject(userDetails.getUsername())
 				.issuedAt(new Date(System.currentTimeMillis()))
-				.expiration(new Date(System.currentTimeMillis() + 1000 * 60 * 24)).signWith(getSignInKey()).compact();
+				.expiration(new Date(System.currentTimeMillis() + 1000 * 60 * 24))
+				.signWith(getSignInKey())
+				.compact();
 	}
 
 	public String generateToken(UserDetails userDetails) {

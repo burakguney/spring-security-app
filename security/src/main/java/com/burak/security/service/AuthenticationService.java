@@ -3,6 +3,8 @@ package com.burak.security.service;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -27,10 +29,10 @@ public class AuthenticationService {
 	private final JwtService jwtService;
 	private final AuthenticationManager authenticationManager;
 
-	public RegisterResponse register(RegisterRequest registerRequest) {
+	public ResponseEntity<String> register(RegisterRequest registerRequest) {
 		var user = userRepository.findByEmail(registerRequest.getEmail());
 		if (user.isPresent()) {
-			return RegisterResponse.builder().result("Bu eposta adresi kullanılmış.").build();
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Bu eposta adresi kullanılmış.");
 		}
 
 		var newUser = User.builder().firstname(registerRequest.getFirstname()).lastname(registerRequest.getLastname())
@@ -38,7 +40,7 @@ public class AuthenticationService {
 				.role(Role.USER).build();
 
 		userRepository.save(newUser);
-		return RegisterResponse.builder().result("Kullanıcı başarıyla oluşturuldu.").build();
+		return ResponseEntity.status(HttpStatus.OK).body("Kullanıcı başarıyla oluşturuldu.");
 	}
 
 	public LoginResponse login(LoginRequest loginRequest) {

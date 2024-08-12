@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.burak.security.dto.LoginRequest;
 import com.burak.security.dto.LoginResponse;
 import com.burak.security.dto.RegisterRequest;
-import com.burak.security.dto.RegisterResponse;
 import com.burak.security.service.AuthenticationService;
 
 import lombok.RequiredArgsConstructor;
@@ -23,8 +22,8 @@ public class AuthenticationController {
 	private final AuthenticationService authenticationService;
 
 	@PostMapping("/register")
-	public ResponseEntity<RegisterResponse> register(@RequestBody RegisterRequest registerRequest) {
-		return ResponseEntity.ok(authenticationService.register(registerRequest));
+	public ResponseEntity<String> register(@RequestBody RegisterRequest registerRequest) {
+		return authenticationService.register(registerRequest);
 	}
 
 	@PostMapping("/login")
